@@ -1,58 +1,89 @@
 # MyWebServer
 
 
-基于 C++17/Linux 实现的高性能 HTTP Server。
+## 项目简介
 
-采用 Reactor 网络模型，
-基于 Linux epoll 实现 IO 多路复用，
-支持多线程 EventLoop、非阻塞 IO、
-HTTP 请求解析以及定时器管理。
+MyWebServer 是一个基于 C++17 开发的轻量级 HTTP Server。
 
-
-## Features
-
-- Linux epoll ET模式
-- Reactor事件驱动模型
-- 主从 Reactor 架构
-- 多线程 EventLoop
-- eventfd 跨线程唤醒
-- 非阻塞 socket
-- HTTP/1.1 请求解析
-- 静态资源访问
-- 定时器管理
+项目基于 Linux 网络编程模型，
+采用 Reactor 架构，
+使用 epoll 实现高并发 IO，
+结合线程池提升请求处理能力。
 
 
-## Architecture
+## 技术栈
 
-
-                 Main Thread
-
-                    |
-                Acceptor
-
-                    |
-        ---------------------
-        |        |          |
-     IO线程   IO线程    IO线程
-
-     EventLoop EventLoop EventLoop
-
-
-
-## Tech Stack
-
-Language:
 - C++17
-
-System:
 - Linux
-
-Network:
-- socket
+- Socket
 - epoll
-
-Build:
+- Reactor
+- Multi-thread
+- ThreadPool
 - CMake
+- HTTP/1.1
 
-Tools:
-- Git
+
+## 核心模块
+
+
+### 1. 网络模块
+
+实现 TCP 长连接管理：
+
+- Socket封装
+- TcpServer
+- TcpConnection
+- Channel
+- EventLoop
+
+
+### 2. Reactor事件模型
+
+基于：
+
+epoll + EventLoop
+
+实现：
+
+- IO多路复用
+- 非阻塞网络通信
+- 事件分发
+
+
+### 3. 多线程模块
+
+实现：
+
+- Thread
+- ThreadPool
+- EventLoopThread
+
+
+支持：
+
+主线程负责accept
+
+工作线程负责IO处理
+
+
+### 4. HTTP模块
+
+支持：
+
+- GET请求
+- POST请求
+- 静态资源访问
+- HTTP请求解析
+
+
+### 5. 定时器模块
+
+实现：
+
+- 连接超时检测
+- Timer管理
+
+
+## 项目结构
+
