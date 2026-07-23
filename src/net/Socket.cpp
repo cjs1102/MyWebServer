@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
+#include <fcntl.h>
 #include <unistd.h>
 
 #include <iostream>
@@ -70,6 +71,7 @@ void Socket::bind(uint16_t port)
 		cout << "bind success" << endl;
 	}
 }
+
 void Socket::listen(int backlog)
 {
 	int ret = ::listen(fd_, backlog);
@@ -95,4 +97,43 @@ int Socket::accept()
 	cout << "client accepted" << endl;
 
 	return client_fd;
+}
+
+void Socket::setNonBlocking()
+{
+
+	int flags =
+		fcntl(
+			fd_,
+			F_GETFL,
+			0);
+
+	if (flags == -1)
+	{
+		return;
+	}
+
+	fcntl(
+		fd_,
+		F_SETFL,
+		flags | O_NONBLOCK);
+}
+void Socket::setNonBlocking(int fd)
+{
+
+	int flags =
+		fcntl(
+			fd,
+			F_GETFL,
+			0);
+
+	if (flags == -1)
+	{
+		return;
+	}
+
+	fcntl(
+		fd,
+		F_SETFL,
+		flags | O_NONBLOCK);
 }

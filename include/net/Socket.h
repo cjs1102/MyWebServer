@@ -31,6 +31,11 @@ public:
 
     int accept();
 
+    // 设置非阻塞
+    void setNonBlocking();
+
+    static void setNonBlocking(int fd);
+
 private:
     // socket文件描述符
     //

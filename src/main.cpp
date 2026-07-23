@@ -1,28 +1,13 @@
-#include "net/Socket.h"
-
-#include "iostream"
-#include "unistd.h"
-
-using namespace std;
-
-// 程序入口
+#include "net/TcpServer.h"
+#include "log/Logger.h"
 int main()
 {
-	// 创建Socket对象
-	Socket socket;
 
-	socket.bind(8080);
+	TcpServer server(8080);
 
-	socket.listen(128);
+	Logger::info("MyWebServer start...");
 
-	int client = socket.accept();
+	server.start();
 
-	char buffer[1024];
-
-	int n = read(client, buffer, sizeof(buffer));
-	if (n > 0)
-	{
-		cout.write(buffer, n);
-	}
 	return 0;
 }

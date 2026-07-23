@@ -2,3 +2,21 @@ build/
 *.o
 *.out
 
+# 编译文件
+build/
+
+# 可执行文件
+*.out
+server
+
+# 临时文件
+*.swp
+
+# vscode
+.vscode/
+
+# cmake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
